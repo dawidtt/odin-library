@@ -1,0 +1,48 @@
+html {
+  font-size: 18px;
+  min-height: 100vh;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: left;
+  flex-direction: column;
+  gap: 20px;
+  padding: 40px;
+}
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+.books-wrapper {
+  border: 1px solid black;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  max-width: 80vw;
+}
+.book {
+  font-size: 1.2rem;
+  border: 1px solid black;
+  width: 300px;
+  height: 400px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 2.5rem;
+}
+
+.add-book {
+  width: 300px;
+  height: 400px;
+}
+
+.input-container {
+  display: flex;
+  justify-content: space-between;
+}
