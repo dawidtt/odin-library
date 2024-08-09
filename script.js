@@ -63,7 +63,8 @@ function displayBook(book) {
   read.classList.add("read");
   const readToogleBtn = document.createElement("input");
   readToogleBtn.setAttribute("type", "checkbox");
-  read.textContent = `Read: ${book.read}`;
+  readToogleBtn.dataset.indexInLibrary = bookCounter;
+  read.textContent = `Read: `;
   if (book.read) readToogleBtn.checked = true;
   else readToogleBtn.checked = false;
   readToogleBtn.addEventListener("input", toogleRead);
@@ -75,7 +76,15 @@ function displayBook(book) {
   bookCounter += 1;
 }
 
-function toogleRead(event) {}
+function toogleRead(event) {
+  console.log(event);
+  console.log(myLibrary);
+
+  const indexInLibraryToggle = event.srcElement.dataset.indexInLibrary;
+  myLibrary[indexInLibraryToggle].read = event.target.checked;
+  console.log(event.target.checked);
+  console.log(myLibrary);
+}
 function removeBookFromLibrary(event) {
   console.log(myLibrary);
 
@@ -88,9 +97,12 @@ function removeBookFromLibrary(event) {
   const allBooksArray = Array.prototype.slice.call(allBooks);
   const allIcons = document.querySelectorAll(".book img");
   const allIconsArray = Array.prototype.slice.call(allIcons);
+  const allRead = document.querySelectorAll(".book input");
+  const allReadArray = Array.prototype.slice.call(allRead);
   bookCounter = 0;
   for (let i = 0; i < allBooksArray.length; i++) {
     allBooksArray[i].dataset.indexInLibrary = bookCounter;
+    allReadArray[i].dataset.indexInLibrary = bookCounter;
     allIconsArray[i].id = `${bookCounter}-icon`;
     bookCounter++;
   }
