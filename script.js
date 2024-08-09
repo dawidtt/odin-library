@@ -25,10 +25,10 @@ function addBookToLibrary() {
     pagesInputValue,
     readInputValue
   );
+  myLibrary.push(newBook);
   displayBook(newBook);
 }
 function displayBook(book) {
-  bookCounter += 1;
   const bookDiv = document.createElement("div");
   bookDiv.dataset.indexInLibrary = bookCounter;
   bookDiv.classList.add("book");
@@ -61,22 +61,42 @@ function displayBook(book) {
 
   const read = document.createElement("p");
   read.classList.add("read");
+  const readToogleBtn = document.createElement("input");
+  readToogleBtn.setAttribute("type", "checkbox");
   read.textContent = `Read: ${book.read}`;
+  if (book.read) readToogleBtn.checked = true;
+  else readToogleBtn.checked = false;
+  readToogleBtn.addEventListener("input", toogleRead);
+  read.appendChild(readToogleBtn);
   bookTextWrap.appendChild(read);
 
-  bookDiv.addEventListener("click", removeBookFromLibrary);
+  iconButton.addEventListener("click", removeBookFromLibrary);
   addNewBooksBtn.before(bookDiv);
+  bookCounter += 1;
 }
 
+function toogleRead(event) {}
 function removeBookFromLibrary(event) {
-  bookCounter -= 1;
+  console.log(myLibrary);
 
   const currentIconId = event.target.id;
   const currentBookNumber = currentIconId.charAt(0);
   const selectorOfCurrentBook = `.book[data-index-in-library="${currentBookNumber}"]`;
   const currentBook = document.querySelector(selectorOfCurrentBook);
   currentBook.remove();
+  const allBooks = document.querySelectorAll(".book");
+  const allBooksArray = Array.prototype.slice.call(allBooks);
+  const allIcons = document.querySelectorAll(".book img");
+  const allIconsArray = Array.prototype.slice.call(allIcons);
+  bookCounter = 0;
+  for (let i = 0; i < allBooksArray.length; i++) {
+    allBooksArray[i].dataset.indexInLibrary = bookCounter;
+    allIconsArray[i].id = `${bookCounter}-icon`;
+    bookCounter++;
+  }
+
   myLibrary.splice(currentBookNumber, 1);
+  console.log(myLibrary);
 }
 let bookCounter = 0;
 const dialog = document.querySelector("#dialog");
