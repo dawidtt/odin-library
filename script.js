@@ -1,16 +1,19 @@
-function Book(title, author, pages, read) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-  this.info = function () {
+class Book {
+  constructor(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+  }
+
+  info() {
     let readText;
     if (this.read) readText = "not read yet";
     else readText = "already read";
     return console.log(
       `${this.title} by ${this.author}, ${this.pages} pages, ${readText}.`
     );
-  };
+  }
 }
 
 function addBookToLibrary() {
