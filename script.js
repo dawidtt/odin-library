@@ -126,14 +126,6 @@ closeDialog.addEventListener("click", () => {
   dialog.close();
 });
 
-confirmNewBook.addEventListener("click", preventFromSubmit, false);
-confirmNewBook.addEventListener("click", addBookToLibrary);
-
-function preventFromSubmit(event) {
-  event.preventDefault();
-  dialog.close();
-}
-
 const myLibrary = [];
 myLibrary.push(new Book("The Hobbit", "Tolkien", 295, true));
 myLibrary.push(new Book("Last Wish", "Andrzej Sapkowski", 332, false));
@@ -142,3 +134,30 @@ myLibrary.push(new Book("www.1939.com.pl", "Marcin Ciszewski", 333, false));
 for (book of myLibrary) {
   displayBook(book);
 }
+
+const titleInput = document.querySelector("#title-input");
+const authorInput = document.querySelector("#author-input");
+const pagesInput = document.querySelector("#pages-input");
+const submit = document.querySelector("#confirmBtn");
+submit.addEventListener("click", (event) => {
+  if (titleInput.validity.valueMissing) {
+    // If the field is empty,
+    // display the following error message.
+    titleInput.setCustomValidity("This field cannot be empty");
+  } else if (authorInput.validity.valueMissing) {
+    // If the field doesn't contain an email address,
+    // display the following error message.
+    authorInput.setCustomValidity("This field cannot be empty");
+  } else if (pagesInput.validity.valueMissing) {
+    // If the data is too short,
+    // display the following error message.
+    pagesInput.setCustomValidity("This field cannot be empty");
+  } else {
+    titleInput.setCustomValidity("");
+    authorInput.setCustomValidity("");
+    pagesInput.setCustomValidity("");
+    event.preventDefault();
+    dialog.close();
+    addBookToLibrary();
+  }
+});
